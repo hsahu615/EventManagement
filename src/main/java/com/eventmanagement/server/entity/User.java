@@ -43,6 +43,9 @@ public class User implements UserDetails {
         return list;
     }
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Booking> bookings;
+
     @Override
     public String getUsername() {
         return this.email;
