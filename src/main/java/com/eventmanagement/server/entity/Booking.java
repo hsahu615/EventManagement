@@ -9,21 +9,21 @@ import java.util.Date;
 public class Booking {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
+    @Column(name = "booking_id")
     private String bookingId;
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date bookingDate;
 
     @OneToOne
-    @JoinColumn(name = "seatId", nullable = false)
+    @JoinColumn(name = "seat_id", nullable = false)
     private Seat seat;
 
     @ManyToOne
-    @JoinColumn(name = "userId", nullable = false)
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "eventId", nullable = false)
+    @JoinColumn(name = "event_id", nullable = false)
     private Event event;
 }
