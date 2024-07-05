@@ -16,11 +16,6 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping("/getevents")
-    private String getEvents() {
-        return "Events";
-    }
-
     @GetMapping("/all")
     public List<User> user() {
         return this.userService.getAllUsers();
