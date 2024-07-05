@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class EventService {
@@ -25,6 +26,10 @@ public class EventService {
     }
 
     public String createEvent(Event event) {
+        Optional<Event> optionalEvent = eventRepository.findByEventName(event.getEventName());
+        if(!optionalEvent.isEmpty()) {
+            return "Event already present!";
+        }
         Event eventDTO = new Event();
         eventDTO.setEventDate(event.getEventDate());
         eventDTO.setEventName(event.getEventName());
@@ -38,5 +43,14 @@ public class EventService {
         eventDTO.setSeats(seats);
 
         return eventRepository.save(eventDTO).getEventId();
+    }
+
+    public String deleteEvent(String eventId) {
+        Optional<Event> event = eventRepository.findById(eventId);
+        if(event.isEmpty()) {
+            return "Event does not exist!";
+        }
+        eventRepository.deleteById(eventId);
+        return "Event Deleted";
     }
 }

@@ -25,4 +25,9 @@ public class EventController {
     public ResponseEntity<String> createEvent(@RequestBody Event event) {
         return new ResponseEntity<>(eventService.createEvent(event), HttpStatus.OK);
     }
+
+    @DeleteMapping("/")
+    public ResponseEntity<String> deleteEvent(@RequestBody String eventId) {
+        return new ResponseEntity<>(eventService.deleteEvent(eventId), HttpStatus.OK);
+    }
 }

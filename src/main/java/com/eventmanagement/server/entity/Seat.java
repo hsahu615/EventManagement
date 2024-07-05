@@ -1,12 +1,11 @@
 package com.eventmanagement.server.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
-
-import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -24,6 +23,7 @@ public class Seat {
 
     @ManyToOne
     @JoinColumn(name = "event_id", nullable = false)
+    @JsonIgnore
     private Event event;
 
     @OneToOne(mappedBy = "seat")

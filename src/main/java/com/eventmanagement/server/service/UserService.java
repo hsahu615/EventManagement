@@ -5,9 +5,11 @@ import com.eventmanagement.server.entity.User;
 import com.eventmanagement.server.repo.RoleRepository;
 import com.eventmanagement.server.repo.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.parameters.P;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -27,6 +29,11 @@ public class UserService {
     }
 
     public String createUser(User user) {
+        Optional<User> optionalUser = userRepository.findByEmail(user.getEmail());
+        if(!optionalUser.isEmpty()) {
+            return "User already exist!";
+        }
+
         user.setUserId(UUID.randomUUID().toString());
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
@@ -35,7 +42,6 @@ public class UserService {
             Role r = new Role();
             r.setRoleId(UUID.randomUUID().toString());
             r.setName(role.getName());
-//            roleRepository.save(r);
         }
         userRepository.save(user);
         return user.getUserId();
