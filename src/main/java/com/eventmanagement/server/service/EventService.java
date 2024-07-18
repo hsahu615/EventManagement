@@ -7,6 +7,7 @@ import com.eventmanagement.server.repo.SeatRepository;
 import com.eventmanagement.server.utility.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -25,6 +26,7 @@ public class EventService {
         return getAllEvents;
     }
 
+    @Transactional
     public String createEvent(Event event) {
         Optional<Event> optionalEvent = eventRepository.findByEventName(event.getEventName());
         if(!optionalEvent.isEmpty()) {
@@ -45,6 +47,7 @@ public class EventService {
         return eventRepository.save(eventDTO).getEventId();
     }
 
+    @Transactional
     public String deleteEvent(String eventId) {
         Optional<Event> event = eventRepository.findById(eventId);
         if(event.isEmpty()) {
