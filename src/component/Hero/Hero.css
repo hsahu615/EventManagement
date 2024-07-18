@@ -1,0 +1,14 @@
+.hero-wrapper {
+  height: 100%;
+}
+
+.hero-heading {
+  font-size: 46px;
+}
+
+.hero-img {
+  height: 50vh;
+  width: auto;
+  margin-right: auto;
+  margin-left: auto;
+}

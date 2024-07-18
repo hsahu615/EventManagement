@@ -1,0 +1,14 @@
+.navbar-wrapper {
+  border-bottom: 0.8px solid black;
+  padding: 0 20px;
+  height: 100%;
+}
+
+.nav-controls {
+  list-style: none;
+  gap: 1.5vw;
+}
+
+.nav-controls > li:hover {
+  cursor: pointer;
+}
