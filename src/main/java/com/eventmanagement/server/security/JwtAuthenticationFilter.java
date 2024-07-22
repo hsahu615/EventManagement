@@ -1,5 +1,6 @@
 package com.eventmanagement.server.security;
 
+import com.eventmanagement.server.service.TokenBlacklistService;
 import com.eventmanagement.server.utility.JwtHelper;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.MalformedJwtException;
@@ -29,6 +30,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     @Autowired
     private UserDetailsService userDetailsService;
+
+    @Autowired
+    private TokenBlacklistService tokenBlacklistService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
@@ -75,8 +79,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             } else {
                 logger.info("Validation fails !!");
             }
+        }
 
-
+        if (token != null && tokenBlacklistService.isTokenBlacklisted(token)) {
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            return;
         }
 
         filterChain.doFilter(request, response);
