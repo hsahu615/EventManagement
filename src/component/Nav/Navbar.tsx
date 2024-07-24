@@ -7,11 +7,13 @@ import { singOut } from "../../service/AuthService";
 import { toast } from "react-toastify";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
+import useAuth from "../../states/useAuth";
 
 const Navbar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
   const [showDropdown, setShowDropdown] = useState(false);
+  const { setAuth }: any = useAuth();
 
   useEffect(() => {
     let token = Cookies.get("token");
@@ -28,6 +30,9 @@ const Navbar = () => {
       if (res.status == 200) {
         Cookies.remove("token");
         toast.success("Logged out!");
+        localStorage.removeItem("username");
+        localStorage.removeItem("roles");
+        setAuth({});
         navigate("/login");
       }
     } catch (e: any) {

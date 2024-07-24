@@ -3,14 +3,19 @@ import Navbar from "../../component/Nav/Navbar";
 import "./Login.css";
 import { login } from "../../service/AuthService";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import useAuth from "../../states/useAuth";
 
 const Login = () => {
+  const { setAuth }: any = useAuth();
   const [loginForm, setLoginForm] = useState({
     username: "",
     password: "",
   });
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
+
   const handleFormChange = (e: any) => {
     setLoginForm((curr) => ({ ...curr, [e.target.name]: e.target.value }));
   };
@@ -24,7 +29,12 @@ const Login = () => {
           theme: "dark",
           pauseOnHover: false,
         });
-        navigate("/");
+        const roles = res.data.roles.map((role: any) => role.authority);
+        const username = res.data.username;
+        localStorage.setItem("username", username);
+        localStorage.setItem("roles", roles);
+        setAuth({ username, roles });
+        navigate(from, { replace: true });
       }
     } catch (e: any) {
       if (e.response.status == 401) {
