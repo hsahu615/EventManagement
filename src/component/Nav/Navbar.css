@@ -12,3 +12,49 @@
 .nav-controls > li:hover {
   cursor: pointer;
 }
+
+.dropdown-link {
+  position: relative;
+}
+
+.nav-dropdown {
+  position: absolute;
+  width: 12vw;
+  top: 5vh;
+  left: -2vw;
+  background-color: white;
+  border-radius: 3px;
+  border: 1px solid darkgray;
+}
+
+.nav-links {
+  color: black;
+  text-decoration: none;
+  background-image: linear-gradient(#000, #000);
+  background-size: 0% 1px;
+  padding-bottom: 2px;
+  background-position-y: 100%;
+  background-position-x: 0%;
+  background-repeat: no-repeat;
+  transition: background-size 0.3s ease-in-out;
+}
+
+.nav-controls > li:hover,
+.nav-controls > li:focus,
+.nav-controls > li:active {
+  background-size: 100% 1px;
+}
+
+.link-inside-dropdown {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  height: 5vh;
+  padding: 0 1vw;
+}
+
+.link-inside-dropdown:hover {
+  background-color: #000;
+  color: white;
+}

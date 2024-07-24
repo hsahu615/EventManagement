@@ -1,6 +1,7 @@
 import React from "react";
 import "./Hero.css";
 import Button from "../Button/Button";
+import { Link } from "react-router-dom";
 
 const Hero = () => {
   return (
@@ -16,7 +17,9 @@ const Hero = () => {
         </p>
         <div className="d-flex">
           <div className="pe-3">
-            <Button type="dark" text="Book" className="pe-3" />
+            <Link to={"/book-event"}>
+              <Button type="dark" text="Book" className="pe-3" />
+            </Link>
           </div>
           <div className="pe-3">
             <Button type="light" text="Learn More" />

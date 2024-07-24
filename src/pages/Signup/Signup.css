@@ -1,0 +1,32 @@
+.login-container {
+  height: 90vh;
+  overflow: hidden;
+}
+
+input.form-inputs {
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-radius: 0;
+}
+
+input.form-inputs:focus {
+  box-shadow: none;
+  border-color: #dee2e6;
+}
+
+.login-button {
+  background-color: black;
+  color: white;
+}
+
+.login-button.form-buttons:focus {
+  background-color: black;
+  color: white;
+  box-shadow: none;
+  border-color: black;
+}
+
+.login-right-bg-container {
+  background-color: black;
+}

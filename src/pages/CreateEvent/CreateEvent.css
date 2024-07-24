@@ -1,0 +1,27 @@
+.form-controls {
+  margin: 2vh 0;
+}
+
+.form-controls > label {
+  padding: 0;
+  font-size: 13px;
+}
+
+.form-controls > input {
+  height: 3rem;
+  font-size: 16px;
+}
+
+.form-controls > input,
+.form-controls > textarea {
+  border-radius: 3px;
+  border: 1px solid darkgray;
+}
+
+.form-controls > input:focus-visible {
+  border-color: black;
+}
+
+.create-event-form {
+  height: 90vh;
+}

@@ -16,7 +16,7 @@ const Button = (props: any) => {
         border:
           props.type == "light" ? "1px solid black" : "1px solid transparent",
       }}
-      className="py-2 px-4 btn rounded-0"
+      className={"py-2 px-4 btn rounded-0 " + props.class}
     >
       {props.text}
     </div>

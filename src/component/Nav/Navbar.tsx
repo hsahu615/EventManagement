@@ -5,10 +5,14 @@ import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import { singOut } from "../../service/AuthService";
 import { toast } from "react-toastify";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
 
 const Navbar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
+  const [showDropdown, setShowDropdown] = useState(false);
+
   useEffect(() => {
     let token = Cookies.get("token");
     if (token) {
@@ -37,19 +41,44 @@ const Navbar = () => {
     <div className="navbar-wrapper d-flex justify-content-between align-items-center">
       <div className="logo-box">
         <Link to={"/"} className="text-decoration-none text-dark">
-          <h1>Eventify</h1>
+          <h1 className="bg-dark text-white px-2">EVENTIFY</h1>
         </Link>
       </div>
       <div>
         <ul className="nav-controls d-flex list-decoration-none align-items-center m-0">
-          <li>Upcoming Events</li>
-          <li>
+          <li className="nav-links">Upcoming Events</li>
+          <li className="nav-links">
             <Link className="text-decoration-none text-dark" to={"/book-event"}>
-              Book Event
+              Ongoing Events
             </Link>
           </li>
-          <li>My Bookings</li>
-          <li>More Options</li>
+          <li className="nav-links">My Bookings</li>
+          <li
+            className="dropdown-link nav-links"
+            onClick={() => setShowDropdown(!showDropdown)}
+          >
+            More Options
+            <FontAwesomeIcon
+              icon={faCaretDown}
+              className="mx-2"
+              style={{ transform: showDropdown ? "rotate(180deg)" : "" }}
+            />
+            {showDropdown ? (
+              <div className="nav-dropdown">
+                <ul className="p-0">
+                  <Link
+                    className="text-decoration-none text-dark"
+                    to={"/create-event"}
+                  >
+                    <li className="w-100 link-inside-dropdown">Create Event</li>
+                  </Link>
+                  <li className="w-100 link-inside-dropdown">Profile</li>
+                </ul>
+              </div>
+            ) : (
+              ""
+            )}
+          </li>
           {isLoggedIn ? (
             <li onClick={signOut}>
               <Button type="light" text="Sign Out" />
@@ -61,8 +90,10 @@ const Navbar = () => {
                   <Button type="light" text="Log In" />
                 </Link>
               </li>
-              <li>
-                <Button type="dark" text="Sign up" />
+              <li className="bg-none">
+                <Link to={"/signup"}>
+                  <Button type="dark" text="Sign up" />
+                </Link>
               </li>
             </div>
           )}

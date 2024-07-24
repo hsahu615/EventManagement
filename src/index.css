@@ -8,3 +8,7 @@ body {
 .row {
   margin: 0;
 }
+
+.nav-container {
+  height: 10vh;
+}
