@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import { getAllEvents } from "../../service/CommonService";
 import { formatDate } from "../../constant/Util";
 import { Link } from "react-router-dom";
+import EventImage from "./EventImage";
 
 const Events = () => {
   const [events, setEvents] = useState<any[]>([]);
@@ -17,7 +18,6 @@ const Events = () => {
       try {
         const allEvents: any = await getAllEvents();
         setEvents(allEvents.data);
-        console.log(allEvents.data);
       } catch (e) {
         console.log(e);
       }
@@ -36,10 +36,7 @@ const Events = () => {
         <div className="card-grid px-4">
           {events.map((event) => (
             <div className="card event-card">
-              <img
-                className="card-img-top img-fluid"
-                src={require("../../assets/images/hero-image1.jpg")}
-              />
+              <EventImage image={event.image} />
               <div className="card-body">
                 <h4 title={event.eventName} className="event-name">
                   {event.eventName}

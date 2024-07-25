@@ -11,7 +11,9 @@ const CreateEvent = () => {
     location: "",
     eventDate: "",
     description: "",
+    image: null,
   });
+  const [correctImage, setCorrectImage] = useState(false);
   const [todayDate, setTodayDate] = useState(
     new Date().toISOString().split("T")[0]
   );
@@ -20,17 +22,47 @@ const CreateEvent = () => {
     setEventForm((curr: any) => ({ ...curr, [e.target.name]: e.target.value }));
   };
 
+  const handleImageUpload = (e: any) => {
+    const selectedFile = e.target.files[0];
+
+    if (selectedFile) {
+      const fileSizeInMB = selectedFile.size / (1024 * 1024);
+      const allowedMimeTypes = ["image/jpg", "image/jpeg"]; // Add more MIME types as needed
+
+      if (fileSizeInMB > 5) {
+        // Max size in MB
+        toast.error("File size exceeds 5MB.");
+        setCorrectImage(false);
+        return;
+      }
+
+      if (!allowedMimeTypes.includes(selectedFile.type)) {
+        toast.error("Invalid file type. Only JPG are allowed.");
+        setCorrectImage(false);
+        return;
+      }
+    }
+    setCorrectImage(true);
+    setEventForm((curr: any) => ({ ...curr, ["image"]: e.target.files[0] }));
+  };
+
   const handleSubmit = async (e: any) => {
     e.preventDefault();
+    if (correctImage == false) {
+      toast.error("Please provide image in correct format");
+      return;
+    }
     if (
       eventForm.eventName === "" ||
       eventForm.eventDate === "" ||
       eventForm.location === "" ||
-      eventForm.description === ""
+      eventForm.description === "" ||
+      eventForm.image === null
     ) {
       toast.error("Please fill all the fields");
       return;
     }
+
     try {
       const res = await createEvent(eventForm);
       if (res.status === 200) {
@@ -103,6 +135,16 @@ const CreateEvent = () => {
               onChange={handleChange}
             />
           </div>
+          <div className="row flex-direction-column form-controls">
+            <label>Image</label>
+            <input
+              name="image"
+              type="file"
+              onChange={handleImageUpload}
+              accept="image/*"
+            />
+          </div>
+
           <div className="row">
             <button
               type="submit"

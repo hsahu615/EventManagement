@@ -17,7 +17,7 @@ export const createEvent = async (event: any) => {
   const res = await axios.post("http://localhost:8080/event/", event, {
     headers: {
       Authorization: `Bearer ${token}`,
-      "Content-Type": "application/json",
+      "Content-Type": "multipart/form-data",
     },
   });
   return res;

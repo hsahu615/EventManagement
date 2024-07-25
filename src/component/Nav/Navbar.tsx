@@ -8,12 +8,13 @@ import { toast } from "react-toastify";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
 import useAuth from "../../states/useAuth";
+import { ROLE_ADMIN } from "../../constant/Constant";
 
 const Navbar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
   const [showDropdown, setShowDropdown] = useState(false);
-  const { setAuth }: any = useAuth();
+  const { auth, setAuth }: any = useAuth();
 
   useEffect(() => {
     let token = Cookies.get("token");
@@ -53,8 +54,11 @@ const Navbar = () => {
         <ul className="nav-controls d-flex list-decoration-none align-items-center m-0">
           <li className="nav-links">Upcoming Events</li>
           <li className="nav-links">
-            <Link className="text-decoration-none text-dark" to={"/book-event"}>
-              Ongoing Events
+            <Link
+              className="text-decoration-none text-dark"
+              to={"/live-events"}
+            >
+              Live Events
             </Link>
           </li>
           <li className="nav-links">My Bookings</li>
@@ -69,14 +73,23 @@ const Navbar = () => {
               style={{ transform: showDropdown ? "rotate(180deg)" : "" }}
             />
             {showDropdown ? (
-              <div className="nav-dropdown">
+              <div
+                className="nav-dropdown"
+                onMouseLeave={() => setShowDropdown(false)}
+              >
                 <ul className="p-0">
-                  <Link
-                    className="text-decoration-none text-dark"
-                    to={"/create-event"}
-                  >
-                    <li className="w-100 link-inside-dropdown">Create Event</li>
-                  </Link>
+                  {auth?.roles?.includes(ROLE_ADMIN) ? (
+                    <Link
+                      className="text-decoration-none text-dark"
+                      to={"/create-event"}
+                    >
+                      <li className="w-100 link-inside-dropdown">
+                        Create Event
+                      </li>
+                    </Link>
+                  ) : (
+                    ""
+                  )}
                   <li className="w-100 link-inside-dropdown">Profile</li>
                 </ul>
               </div>

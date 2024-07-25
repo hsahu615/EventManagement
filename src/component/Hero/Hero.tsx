@@ -17,7 +17,7 @@ const Hero = () => {
         </p>
         <div className="d-flex">
           <div className="pe-3">
-            <Link to={"/book-event"}>
+            <Link to={"/live-events"}>
               <Button type="dark" text="Book" className="pe-3" />
             </Link>
           </div>
