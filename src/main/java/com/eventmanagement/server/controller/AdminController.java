@@ -11,12 +11,4 @@ import java.util.List;
 @RestController
 @RequestMapping("/admin")
 public class AdminController {
-
-    @Autowired
-    private UserService userService;
-
-    @PostMapping("/create")
-    public String user(@RequestBody User user) {
-        return userService.createUser(user);
-    }
 }

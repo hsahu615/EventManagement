@@ -1,8 +1,10 @@
 package com.eventmanagement.server.controller;
 
+import com.eventmanagement.server.entity.User;
 import com.eventmanagement.server.models.JwtRequest;
 import com.eventmanagement.server.models.JwtResponse;
 import com.eventmanagement.server.service.TokenBlacklistService;
+import com.eventmanagement.server.service.UserService;
 import com.eventmanagement.server.utility.JwtHelper;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
@@ -34,8 +36,10 @@ public class AuthController {
     @Autowired
     private TokenBlacklistService tokenBlacklistService;
 
-    private Logger logger = LoggerFactory.getLogger(AuthController.class);
+    @Autowired
+    private UserService userService;
 
+    private Logger logger = LoggerFactory.getLogger(AuthController.class);
 
     @PostMapping("/login")
     public ResponseEntity<JwtResponse> login(HttpServletResponse httpServletResponse, @RequestBody JwtRequest request) {
@@ -45,13 +49,14 @@ public class AuthController {
         String token = this.helper.generateToken(userDetails);
 
         Cookie cookie = new Cookie("token", token);
-        cookie.setMaxAge(24 * 60 * 60); // 1 day
+        cookie.setMaxAge(2 * 60 * 60); // 1 day
         cookie.setSecure(true);
         cookie.setPath("/");
 
         JwtResponse response = JwtResponse.builder()
                 .jwtToken(token)
                 .username(userDetails.getUsername())
+                .roles(userDetails.getAuthorities())
                 .build();
         httpServletResponse.addCookie(cookie);
         return new ResponseEntity<>(response, HttpStatus.OK);
@@ -64,6 +69,11 @@ public class AuthController {
             tokenBlacklistService.addTokenToBlacklist(jwtToken);
         }
         return ResponseEntity.ok("Logged out successfully");
+    }
+
+    @PostMapping("/create")
+    public String user(@RequestBody User user) {
+        return userService.createUser(user);
     }
 
     private void doAuthenticate(String email, String password) {

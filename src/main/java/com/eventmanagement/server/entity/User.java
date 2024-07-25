@@ -27,6 +27,7 @@ public class User implements UserDetails {
     private String name;
     private String email;
     private String password;
+    private String phone;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "employee_roles",

@@ -29,6 +29,9 @@ public class Event {
     private Date eventDate;
     @Lob
     private String description;
+    @Lob
+    @Column(name = "data", columnDefinition = "MEDIUMBLOB")
+    private byte[] image;
 
     @OneToMany(mappedBy = "event", cascade = CascadeType.ALL)
     List<Seat> seats;

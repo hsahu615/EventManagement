@@ -2,6 +2,7 @@ package com.eventmanagement.server.service;
 
 import com.eventmanagement.server.entity.Event;
 import com.eventmanagement.server.entity.Seat;
+import com.eventmanagement.server.models.EventDTO;
 import com.eventmanagement.server.repo.EventRepository;
 import com.eventmanagement.server.repo.SeatRepository;
 import com.eventmanagement.server.utility.Util;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,7 +29,7 @@ public class EventService {
     }
 
     @Transactional
-    public String createEvent(Event event) {
+    public String createEvent(EventDTO event) throws IOException {
         Optional<Event> optionalEvent = eventRepository.findByEventName(event.getEventName());
         if(!optionalEvent.isEmpty()) {
             return "Event already present!";
@@ -37,6 +39,7 @@ public class EventService {
         eventDTO.setEventName(event.getEventName());
         eventDTO.setLocation(event.getLocation());
         eventDTO.setDescription(event.getDescription());
+        eventDTO.setImage(event.getImage().getBytes());
         Event savedEvent = eventRepository.save(eventDTO);
 
         List<Seat> seats = Util.creteSeats(savedEvent);

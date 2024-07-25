@@ -23,8 +23,10 @@ public class Seat {
 
     @ManyToOne
     @JoinColumn(name = "event_id", nullable = false)
+    @JsonIgnore
     private Event event;
 
     @OneToOne(mappedBy = "seat")
+    @JsonIgnore
     private Booking booking;
 }

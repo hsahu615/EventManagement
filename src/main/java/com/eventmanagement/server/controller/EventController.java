@@ -1,11 +1,14 @@
 package com.eventmanagement.server.controller;
 
 import com.eventmanagement.server.entity.Event;
+import com.eventmanagement.server.models.EventDTO;
 import com.eventmanagement.server.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -21,7 +24,7 @@ public class EventController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<String> createEvent(@RequestBody Event event) {
+    public ResponseEntity<String> createEvent(@ModelAttribute EventDTO event) throws IOException {
         return new ResponseEntity<>(eventService.createEvent(event), HttpStatus.OK);
     }
 
