@@ -21,3 +21,14 @@ export const formatDate = (dateString: any) => {
   } ${year}`;
   return formattedDate;
 };
+
+export const getTokenExpiry = () => {
+  let currentTime = new Date();
+  let expiry = process.env.TOKEN_EXPIRY_TIME
+    ? process.env.TOKEN_EXPIRY_TIME
+    : 7200000;
+  let newTime = new Date(
+    currentTime.getTime() + Number.parseInt(expiry.toString())
+  );
+  return newTime;
+};

@@ -1,0 +1,28 @@
+.theatre-screen {
+  height: 200px;
+  border-left: 70px solid transparent;
+  border-right: 70px solid transparent;
+  border-top: 40px solid black;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+}
+
+.theatre-seat {
+  height: 40px;
+  width: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 10px 5px;
+  border-top-right-radius: 50%;
+  border-top-left-radius: 50%;
+  background-color: black;
+  color: white;
+  cursor: pointer;
+}
+
+.seat-column {
+  justify-content: center;
+  display: flex;
+}

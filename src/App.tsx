@@ -9,6 +9,7 @@ import CreateEvent from "./pages/CreateEvent/CreateEvent";
 import Layout from "./Layout";
 import RequireAuth from "./component/RequireAuth";
 import Unauthorized from "./Unauthorized";
+import BookEvent from "./pages/BookEvent/BookEvent";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
         <Route element={<RequireAuth allowedRoles={["ADMIN", "USER"]} />}>
           <Route path="/" element={<Home />} />
           <Route path="live-events" element={<Events />} />
+          <Route path="book-event/:eventId" element={<BookEvent />} />
         </Route>
       </Route>
     </Routes>

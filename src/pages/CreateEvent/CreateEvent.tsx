@@ -140,6 +140,7 @@ const CreateEvent = () => {
             <input
               name="image"
               type="file"
+              className="border-0 mt-2 p-0"
               onChange={handleImageUpload}
               accept="image/*"
             />

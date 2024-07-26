@@ -5,6 +5,8 @@ import { login } from "../../service/AuthService";
 import { toast } from "react-toastify";
 import { useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../../states/useAuth";
+import Cookies from "js-cookie";
+import { getTokenExpiry } from "../../constant/Util";
 
 const Login = () => {
   const { setAuth }: any = useAuth();
@@ -31,8 +33,14 @@ const Login = () => {
         });
         const roles = res.data.roles.map((role: any) => role.authority);
         const username = res.data.username;
-        localStorage.setItem("username", username);
-        localStorage.setItem("roles", roles);
+        Cookies.set("username", username, {
+          expires: getTokenExpiry(),
+        });
+        Cookies.set("roles", roles, {
+          expires: getTokenExpiry(),
+        });
+        // localStorage.setItem("username", username);
+        // localStorage.setItem("roles", roles);
         setAuth({ username, roles });
         navigate(from, { replace: true });
       }

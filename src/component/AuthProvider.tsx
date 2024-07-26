@@ -1,10 +1,13 @@
+import Cookies from "js-cookie";
 import { createContext, useState } from "react";
 
 const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }: any) => {
-  const username = localStorage.getItem("username");
-  const roles = localStorage.getItem("roles")?.split(",");
+  // const username = localStorage.getItem("username");
+  // const roles = localStorage.getItem("roles")?.split(",");
+  const username = Cookies.get("username");
+  const roles = Cookies.get("roles")?.split(",");
   const [auth, setAuth] = useState({ username, roles });
 
   return (

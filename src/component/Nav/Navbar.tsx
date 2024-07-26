@@ -31,8 +31,10 @@ const Navbar = () => {
       if (res.status == 200) {
         Cookies.remove("token");
         toast.success("Logged out!");
-        localStorage.removeItem("username");
-        localStorage.removeItem("roles");
+        Cookies.remove("username");
+        Cookies.remove("roles");
+        // localStorage.removeItem("username");
+        // localStorage.removeItem("roles");
         setAuth({});
         navigate("/login");
       }
