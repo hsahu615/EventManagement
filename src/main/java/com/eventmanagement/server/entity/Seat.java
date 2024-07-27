@@ -20,6 +20,7 @@ public class Seat {
     private String status;
     private String seatNumber;
     private String seatType;
+    private Integer price;
 
     @ManyToOne
     @JoinColumn(name = "event_id", nullable = false)

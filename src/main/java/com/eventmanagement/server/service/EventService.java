@@ -28,6 +28,11 @@ public class EventService {
         return getAllEvents;
     }
 
+    public Event getEvent(String eventId) throws Exception {
+        Event getEvent = eventRepository.findById(eventId).orElseThrow(() -> new Exception("Event not found"));
+        return getEvent;
+    }
+
     @Transactional
     public String createEvent(EventDTO event) throws IOException {
         Optional<Event> optionalEvent = eventRepository.findByEventName(event.getEventName());

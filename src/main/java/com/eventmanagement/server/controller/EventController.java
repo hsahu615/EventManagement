@@ -18,9 +18,14 @@ public class EventController {
     @Autowired
     private EventService eventService;
 
-    @GetMapping("/")
+    @GetMapping("/all")
     public ResponseEntity<List<Event>> getAllEvents() {
         return new ResponseEntity<>(eventService.getAllEvents(), HttpStatus.OK);
+    }
+
+    @GetMapping("/{eventId}")
+    public ResponseEntity<Event> getEvent(@PathVariable String eventId) throws Exception{
+        return new ResponseEntity<>(eventService.getEvent(eventId), HttpStatus.OK);
     }
 
     @PostMapping("/")
