@@ -26,3 +26,23 @@
   justify-content: center;
   display: flex;
 }
+
+.theatre-seat.seat-booked {
+  background-color: darkgray;
+  pointer-events: none;
+}
+
+.theatre-seat.seat-selected {
+  background-color: green;
+}
+
+.ticket-event-id {
+  font-size: 11px;
+}
+
+.ticket-event-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+}

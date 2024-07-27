@@ -49,7 +49,11 @@ const Navbar = () => {
     <div className="navbar-wrapper d-flex justify-content-between align-items-center">
       <div className="logo-box">
         <Link to={"/"} className="text-decoration-none text-dark">
-          <h1 className="bg-dark text-white px-2">EVENTIFY</h1>
+          {/* <h1 className="bg-dark text-white px-2">EVENTIFY</h1> */}
+          <img
+            src={require("../../assets/images/logo.jpg")}
+            className="logo-img"
+          />
         </Link>
       </div>
       <div>
