@@ -3,9 +3,11 @@ import Navbar from "../../component/Nav/Navbar";
 import "./BookEvent.css";
 import { useNavigate, useParams } from "react-router-dom";
 import { getEvent } from "../../service/CommonService";
+import Button from "../../component/Button/Button";
 
 const BookEvent = () => {
   const { eventId }: any = useParams();
+  const navigate = useNavigate();
   const [event, setEvent] = useState<any>({});
   const [seats, setSeats] = useState<any>({});
   const [totalPrice, setTotalPrice] = useState(0);
@@ -74,6 +76,15 @@ const BookEvent = () => {
     }
   };
 
+  const checkout = () => {
+    navigate("/checkout", {
+      state: {
+        event: event,
+        seats: seats,
+      },
+    });
+  };
+
   return (
     <div>
       <div className="nav-container">
@@ -121,6 +132,17 @@ const BookEvent = () => {
                   <div className={"theatre-seat seat-selected"}></div>
                   <p className="text-center"> Selected</p>
                 </div>
+              </div>
+              <div className="w-100" onClick={checkout}>
+                <Button
+                  text="Proceed to Checkout"
+                  type="light"
+                  class={`w-100 ${
+                    selectedSeats.length == 0
+                      ? "bg-secondary pe-none text-white "
+                      : ""
+                  }`}
+                />
               </div>
             </div>
           </div>

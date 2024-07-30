@@ -10,6 +10,7 @@ import Layout from "./Layout";
 import RequireAuth from "./component/RequireAuth";
 import Unauthorized from "./Unauthorized";
 import BookEvent from "./pages/BookEvent/BookEvent";
+import Checkout from "./pages/Checkout/Checkout";
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="live-events" element={<Events />} />
           <Route path="book-event/:eventId" element={<BookEvent />} />
+          <Route path="checkout" element={<Checkout />} />
         </Route>
       </Route>
     </Routes>
